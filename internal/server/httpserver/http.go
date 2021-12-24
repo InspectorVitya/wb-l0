@@ -32,7 +32,7 @@ func New(cfg config.HTTP, App *application.App) *Server {
 
 func (s *Server) Start() error {
 	vueHandler := http.FileServer(http.Dir("./web/dist"))
-	s.router.PathPrefix("/debug/pprof/").Handler(http.DefaultServeMux)
+	//s.router.PathPrefix("/debug/pprof/").Handler(http.DefaultServeMux)
 	s.router.HandleFunc("/order/{id}", s.GetOrder).Methods(http.MethodGet)
 	s.router.PathPrefix("/").Handler(vueHandler)
 

@@ -12,7 +12,7 @@ import (
 
 const (
 	clusterID = "test-cluster"
-	clientID  = "order-store"
+	clientID  = "sub-store"
 )
 
 func main() {
@@ -23,14 +23,18 @@ func main() {
 	var a model.Order
 	_ = faker.SetRandomMapAndSliceSize(3)
 	for i := 0; i < 1000; i++ {
+		//if i == 100 || i == 600{
+		//	_ = nc.Publish("sub", []byte("kak dela?"))
+		//	continue
+		//}
 		err = faker.FakeData(&a)
 		if err != nil {
 			fmt.Println(err)
 		}
-		uid, _ := uuid.NewV4()
+		uid := uuid.NewV4()
 		a.OrderUID = uid.String()
 		bd, _ := json.Marshal(a)
-		_ = nc.Publish("order", bd)
+		_ = nc.Publish("sub", bd)
 	}
 
 	_ = nc.Close()

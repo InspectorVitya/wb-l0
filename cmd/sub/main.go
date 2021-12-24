@@ -27,6 +27,7 @@ func main() {
 		log.Fatalln(err)
 	}
 	natsStreaming := streaming.New(cfg.Nats)
+
 	app := application.New(db, natsStreaming)
 	err = app.Init(context.TODO())
 	if err != nil {
